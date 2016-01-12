@@ -18,7 +18,7 @@ module.exports = function(robot) {
     app.use(express.static(__dirname + '/public'));
 
     app.get('/', function(req, res){
-        res.render('home.jade');
+        res.render('home.jade', { testval: "yes please" });
     });
 
     server.listen(3000);

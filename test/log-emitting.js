@@ -18,7 +18,7 @@ describe('Logging interception',function() {
        
        //Waits for connection before continuing
        socket.on('connected',function() {
-           done()
+           //done()
        })
     })
     
