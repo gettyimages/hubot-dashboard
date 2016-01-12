@@ -7,9 +7,11 @@ module.exports = function(robot) {
 
     //Going to add a logging interceptor
     var infoLogger = robot.logger.info
+    console.log("Logger Details" + infoLogger)
     robot.logger.info = function(message) {
+        console.log(message)
         io.emit('newLogUpdate',message)
-        infoLogger(message)    
+        infoLogger(message)
     }
     
     app.set('views', __dirname + '/views');
