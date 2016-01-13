@@ -34,7 +34,15 @@ html(lang='en')
           H4 Up Time: 
           H4#uptime
       .row
-        textarea#log
+        .col-md-4
+          H4 Connected Clients:
+          H4#viewers
+        .col-md-4
+          textarea#rooms(style="width:100%",rows=15)
+      .row
+        H4 Robot Log
+        textarea#log(style="width:100%" rows=15)
+      
 
     // Bootstrap core JavaScript
     //  ==================================================

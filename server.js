@@ -7,6 +7,7 @@ module.exports = function(robot) {
   var jade = require('jade')
   var process = require('process')
   var toArray = require('lodash.toarray')
+  
 
   app.set('views', __dirname + '/views');
   app.set('view engine', 'jade');
@@ -18,6 +19,7 @@ module.exports = function(robot) {
   });
   
   var old_std_out = process.stdout.write
+  var viewers = 0
   
   process.stdout.write = (function(write) {
     return function(string, encoding, fd) {
@@ -30,12 +32,18 @@ module.exports = function(robot) {
   server.listen(3000);
   
   io.on('connection', function (socket) {
+      viewers = viewers + 1
       socket.emit('connected',"welcome!\n")
       socket.emit('totalmem',os.totalmem())
+      socket.on('disconnect', function() {
+        viewers = viewers - 1
+      })
   });
+  
   
   setInterval(function() {
     io.emit('freemem',os.freemem())
     io.emit('uptime', os.uptime())
+    io.emit('viewers', viewers)
   },5000)
 }

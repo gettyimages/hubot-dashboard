@@ -19,6 +19,9 @@ $(document).ready(function(){
   
   socket.on('uptime',function(data) {
     $('#uptime').text(data)
-    
+  })
+  
+  socket.on('viewers', function(data) {
+    $('#viewers').text(data)
   })
 })
