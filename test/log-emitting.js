@@ -23,19 +23,19 @@ describe('Logging interception',function() {
     })
     
     it('should emit logging',function(done) {   
-      socket.on('newLogUpdate',function(data) {
-          expect(data).to.be.equal("test")
+      socket.on('logupdate',function(data) {
+          expect(data).to.contain("INFO test\n")
           done()
       })
       
       //fires a logging message
-      robotCtx.logger.info('test')
+      robotCtx.logger.info("test")
     })
     
     it('should allow the log to continue to the standard robot logger', function() {
         var itemsLogged = robotCtx.getLogItems().info
         expect(itemsLogged).not.to.be.null
-        expect(itemsLogged.length).to.be.equal(2)
+        expect(itemsLogged.length).to.be.equal(1)
         expect(itemsLogged).to.contain("test")
     })
 })
