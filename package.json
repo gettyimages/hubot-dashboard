@@ -26,12 +26,14 @@
   "dependencies": {
     "express": "^4.13.3",
     "jade": "^1.11.0",
+    "lodash.toarray": "^3.0.2",
+    "log": "^1.4.0",
     "socket.io": "^1.4.4"
   },
   "devDependencies": {
     "chai": "^3.4.1",
     "mocha": "^2.3.4",
-    "mock-hubot-robot": "0.0.5",
+    "mock-hubot-robot": "file:///home/casey/src/github.com/gettyimages/mock-hubot-robot",
     "nock": "^5.2.1"
   }
 }

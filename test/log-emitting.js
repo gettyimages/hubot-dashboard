@@ -18,19 +18,18 @@ describe('Logging interception',function() {
        
        //Waits for connection before continuing
        socket.on('connected',function() {
-           //done()
+           done()
        })
     })
     
-    it('should emit logging',function(done) {        
-        socket.on('newLogUpdate',function(data) {
-           console.log(data)
-           expect(data).to.be.equal("test")
-           done()
-        })
-        
-        //fires a logging message
-        robotCtx.logger.info("test")
+    it('should emit logging',function(done) {   
+      socket.on('newLogUpdate',function(data) {
+          expect(data).to.be.equal("test")
+          done()
+      })
+      
+      //fires a logging message
+      robotCtx.logger.info('test')
     })
     
     it('should allow the log to continue to the standard robot logger', function() {
