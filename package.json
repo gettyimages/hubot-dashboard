@@ -33,7 +33,7 @@
   "devDependencies": {
     "chai": "^3.4.1",
     "mocha": "^2.3.4",
-    "mock-hubot-robot": "file:///home/casey/src/github.com/gettyimages/mock-hubot-robot",
+    "mock-hubot-robot": "0.0.7",
     "nock": "^5.2.1"
   }
 }
