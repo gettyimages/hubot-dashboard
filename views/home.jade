@@ -22,9 +22,20 @@ html(lang='en')
     link(href='/css/dashboard.css', rel='stylesheet')
   |   
   body     
-    .container-fluid
-      textarea#log
-    
+    .container
+      .row
+        .col-md-4
+          H4 Total Memory: 
+          H4#totalmem
+        .col-md-4
+          H4 Free Memory: 
+          H4#freemem
+        .col-md-4
+          H4 Up Time: 
+          H4#uptime
+      .row
+        textarea#log
+
     // Bootstrap core JavaScript
     //  ==================================================
     // Placed at the end of the document so the pages load faster

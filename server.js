@@ -1,4 +1,5 @@
-module.exports = function(robot) {    
+module.exports = function(robot) {
+  var os = require('os')    
   var express = require('express')
   var app = express()
   var server = require('http').Server(app)
@@ -26,11 +27,15 @@ module.exports = function(robot) {
     };
     }(process.stdout.write));
           
-  
   server.listen(3000);
   
   io.on('connection', function (socket) {
-      robot.logger.info("new connection")
-      socket.emit('connected',"welcome!")
+      socket.emit('connected',"welcome!\n")
+      socket.emit('totalmem',os.totalmem())
   });
+  
+  setInterval(function() {
+    io.emit('freemem',os.freemem())
+    io.emit('uptime', os.uptime())
+  },5000)
 }

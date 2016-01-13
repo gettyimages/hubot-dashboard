@@ -8,4 +8,17 @@ $(document).ready(function(){
   socket.on('logupdate',function(data) {
     $('#log').val($('#log').val() + data)
   })
+  
+  socket.on('freemem',function(data) {
+    $('#freemem').text(data)
+  })
+  
+  socket.on('totalmem',function(data) {
+    $('#totalmem').text(data)
+  })
+  
+  socket.on('uptime',function(data) {
+    $('#uptime').text(data)
+    
+  })
 })
