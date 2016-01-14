@@ -7,7 +7,32 @@ module.exports = function(robot) {
   var jade = require('jade')
   var process = require('process')
   var toArray = require('lodash.toarray')
+  var moment = require('moment')
+
+  function GetPlatformDetails() {
+    return {
+      os: os.platform() + " " + os.release(),
+      type: os.type()     
+    };
+  }
   
+  function GetTotalMemory() {
+    const KB = 1024
+    const MB = KB * 1024
+    const GB = MB * 1024
+    
+    var totalBytes = os.totalmem()
+    
+    if(totalBytes > GB) {
+      return (totalBytes / GB).toFixed(2) + " GB"
+    } else if(totalBytes >= MB) {
+      return (totalBytes / MB).toFixed(2) + " MB"
+    } else if(totalBytes >= KB) {
+      return (totalBytes / KB).toFixed(2) + " KB"
+    } else {
+      return totalBytes + " bytes"
+    }
+  }
 
   app.set('views', __dirname + '/views');
   app.set('view engine', 'jade');
@@ -18,9 +43,9 @@ module.exports = function(robot) {
       res.render('home.jade');
   });
   
-  var old_std_out = process.stdout.write
   var viewers = 0
   
+  //This is what allows us to intercept stdout
   process.stdout.write = (function(write) {
     return function(string, encoding, fd) {
       io.emit('logupdate',string)
@@ -31,19 +56,21 @@ module.exports = function(robot) {
           
   server.listen(3000);
   
+  //When someone connects
   io.on('connection', function (socket) {
       viewers = viewers + 1
       socket.emit('connected',"welcome!\n")
-      socket.emit('totalmem',os.totalmem())
+      socket.emit('totalmem',GetTotalMemory())
+      socket.emit('platform',GetPlatformDetails())
       socket.on('disconnect', function() {
         viewers = viewers - 1
       })
   });
   
-  
+  //Pump stats details every 5 seconds
   setInterval(function() {
-    io.emit('freemem',os.freemem())
-    io.emit('uptime', os.uptime())
+    io.emit('freemem', (100*(1 - os.freemem() / os.totalmem())).toFixed(2) + " %")
+    io.emit('uptime', moment.duration(os.uptime(),'seconds').humanize())
     io.emit('viewers', viewers)
   },5000)
 }

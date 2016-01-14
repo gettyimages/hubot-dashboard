@@ -28,6 +28,7 @@
     "jade": "^1.11.0",
     "lodash.toarray": "^3.0.2",
     "log": "^1.4.0",
+    "moment": "^2.11.1",
     "socket.io": "^1.4.4"
   },
   "devDependencies": {
