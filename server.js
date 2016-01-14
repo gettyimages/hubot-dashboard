@@ -10,10 +10,7 @@ module.exports = function(robot) {
   var moment = require('moment')
 
   function GetPlatformDetails() {
-    return {
-      os: os.platform() + " " + os.release(),
-      type: os.type()     
-    };
+    return os.platform() + " " + os.release()
   }
   
   function GetTotalMemory() {

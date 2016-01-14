@@ -24,4 +24,8 @@ $(document).ready(function(){
   socket.on('viewers', function(data) {
     $('#viewers').text(data)
   })
+  
+  socket.on('platform', function(data) {
+    $('#platform').text(data)
+  })
 })
